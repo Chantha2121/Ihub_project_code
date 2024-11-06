@@ -1,0 +1,8 @@
+flask
+python-dotenv
+flask-sqlalchemy
+flask-wtf
+flask-login
+gunicorn
+psycopg2-binary
+pillow

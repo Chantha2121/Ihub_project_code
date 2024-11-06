@@ -1,0 +1,19 @@
+{% import "macros/layout.html" as layout %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {{ layout.common_meta() }}
+        <title>{% block title %}Home Page{% endblock %}</title>
+        {{ layout.common_css() }}
+        {%block vendor_css%}
+        {%endblock%}
+    </head>
+    <body class="d-flex flex-column min-vh-100 p-4">
+        {% block content%}
+        {% endblock %}
+        
+        {{ layout.base_js() }}
+        {% block vendor_script %}
+        {% endblock %}
+    </body>
+</html>

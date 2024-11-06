@@ -1,0 +1,39 @@
+{% extends "layout/admin/form_layout.html" %}
+{% import "macros/controls.html" as con %}
+{% import "macros/forms.html" as frm %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ frm.breadcrumb(breadcrumb) }}
+{% endblock %}
+
+{% block form_title %}
+    {{ frm.form_title(title) }}
+{% endblock %}
+
+{% block form_body %}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="d-flex justify-content-between bg-body-secondary rounded-1 mb-4">
+            {{ form.submit(class="btn btn-secondary") }}
+            <div>
+                <a href="{{ url_for('admin_bp.menu_bp.form', id = 0) }}" class="btn btn-outline-primary"> New</a>
+                <a href="{{ url_for('admin_bp.menu_bp.index') }}" class="btn btn-outline-primary">Back</a>
+            </div>
+        </div>
+        {{ frm.message(msg) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.hidden_tag() }}
+                {{ form.hidden_id() }}
+                {{ con.render_field1(frm.code) }}
+                {{ con.render_field1(form.name) }}
+                {{ con.render_field1(form.icon) }}
+                {{ con.render_field1(form.order) }}
+            </div>
+        </div>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,65 @@
+{% extends "layout/admin/form_layout.html" %}
+{% import "macros/controls.html" as con %}
+{% import "macros/forms.html" as frm %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+{% block vendor_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/datatables/datatables.min.css') }}" id="datatables">
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ frm.breadcrumb(breadcrumb) }}
+{% endblock %}
+
+{% block form_title %}
+    {{ frm.form_title(title) }}
+{% endblock %}
+
+
+{% block form_body %}
+    <div class="d-flex justify-content-between bg-body-secondary rounded-1 mb-4">
+        <a href="{{ url_for('admin_bp.menu_bp.form', id = 0) }}" class="btn btn-secondary">Add New</a>
+    </div>
+    {{ frm.message(msg) }}
+    <table id="tblData" class="table table-bordered border table-hover table-striped nowrap border-1" style="width:100%">
+        <thead>
+            <tr>
+                <th class="dt-head-center">Action</th>
+                <th class="dt-head-center">Code</th>
+                <th>Name</th>
+                <th>Icon</th>
+                <th>Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td class="dt-body-center">
+                    <a class="btn btn-sm" href="{{ url_for('admin_bp.menu_bp.form', id = row['id']) }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a class="btn btn-sm" href="{{ url_for('admin_bp.menu_bp.detail', id = row['id']) }}">
+                        <i class="bi bi-info-square"></i>
+                    </a>
+                </td>
+                <td>{{ row['code'] }}
+                <td>{{ row['name'] }}</td>
+                <td>{{ row['icon'] }}</td>
+                <td>{{ row['order'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block vendor_script %}
+    <script src="{{ url_for('static', filename='vendors/jQuery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/datatables/datatables.min.js') }}"></script>
+    <script>
+        new DataTable('#tblData', {
+            responsive: true
+        });
+    </script>
+{% endblock %}

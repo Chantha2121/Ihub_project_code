@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}iHub{% endblock %}</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css') }}">
+        <!-- Custom CSS (if any) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='app/css/styles.css') }}">
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <header class="bg-light sticky-top">
+            <div class="container">
+                <!-- Logo and Brand Name -->
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand d-flex align-items-center" href="/">
+                        <img src="{{ url_for('static', filename='assets/logo/logo.png') }}" alt="Logo" height="40" class="d-inline-block align-text-top me-2">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('auth_bp.login_bp.login')}}">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main role="main" class="flex-grow-1 p-3" id="content">
+            {% block content %}
+            
+            {% endblock %}
+        </main>
+        <footer class="bg-dark text-white text-center p-3 mt-auto">
+            <div class="container">
+                <p class="m-0">&copy; 2024 My Flask App. All Rights Reserved.</p>
+            </div>
+        </footer>
+        <!-- Bootstrap JS and Popper.js -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.min.js') }}"></script>
+    </body>
+</html>

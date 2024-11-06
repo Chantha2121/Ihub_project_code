@@ -1,0 +1,50 @@
+{% import "macros/layout.html" as layout %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {{ layout.common_meta() }}
+        <title>
+            {% block title %}iHub Admin Panel{% endblock %}
+        </title>
+        {{ layout.common_css() }}
+        {%block vendor_css%}
+        {%endblock%}
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Admin page header -->
+        <header class="bg-primary sticky-top">
+            {{ layout.header_navbar(current_user.username) }}
+        </header>
+        <!-- Admin sidebar and -->
+        <div class="d-flex flex-grow-1">
+            {% block sidebar %}
+            {% endblock %}
+            <div id="content" class="w-100">
+                <iframe name="frame_content" class="w-100 h-100" src="/admin/panel/homepage">
+                </iframe>
+            </div>
+        </div>
+        <footer class="bg-dark text-white text-center py-3 mt-0">
+            {{ layout.footer() }}
+        </footer>
+        {{ layout.common_js() }}
+        <script>
+            // Add 'active' class to the clicked link and remove it from other links
+            document.addEventListener('DOMContentLoaded', function() {
+                const links = document.querySelectorAll('.submenu .nav-link');
+        
+                links.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Remove 'active' class from all links
+                        links.forEach(l => l.classList.remove('active'));
+        
+                        // Add 'active' class to the clicked link
+                        this.classList.add('active');
+                    });
+                });
+            });
+        </script>
+        {% block vendor_script %}
+        {% endblock %}
+    </body>
+</html>

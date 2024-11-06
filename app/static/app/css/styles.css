@@ -1,0 +1,109 @@
+:root {
+    --bs-primary: #16486d;
+    --bs-primary-hover:#226fa9;
+    --bs-secondary: #056fc1;
+    --bs-secondary-hover:#39a0ee;
+}
+.bg-primary{
+    background-color: var(--bs-primary) !important;
+}
+.bg-secondary{
+    background-color: var(--bs-secondary) !important;
+}
+
+.navbar, .btn-primary {
+    --bs-btn-bg: var(--bs-primary) !important;
+    --bs-btn-border-color:var(--bs-primary) !important;
+    --bs-btn-hover-bg:var(--bs-primary-hover) !important;
+    --bs-btn-active-bg: var(--bs-primary) !important;
+  }
+.btn-secondary {
+    --bs-btn-bg: var(--bs-secondary) !important;
+    --bs-btn-border-color:var(--bs-secondary) !important;
+    --bs-btn-hover-bg:var(--bs-primary-hover) !important;
+    --bs-btn-active-bg: var(--bs-secondary) !important;
+}
+.text-primary{
+    color:var(--bs-primary) !important;
+}
+
+.logo-container {
+    width: 120px;
+    height: 30px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    transition: width 0.3s ease; /* Smooth transition on width change */
+}
+.desktop-logo{
+    width: 80px;
+}
+.mobile-logo{
+    width: 40px;
+}
+.navbar-toggler{
+    border:none;
+}
+/* Apply different widths for different screen sizes */
+
+/* Extra small devices (phones, 0px to 575px) */
+@media (max-width: 575px) {
+    .logo-container {
+        width: 50px;
+    }
+}
+/* Small screens (>= 576px) */
+@media (min-width: 576px) {
+    .logo-container {
+        width: 50px;
+    }
+}
+
+/* Medium screens (>= 768px) */
+@media (min-width: 768px) {
+    .logo-container {
+        width: 140px;
+    }
+}
+
+#sidebar {
+    background-color: var(--bs-tertiary-bg) !important;
+}
+
+#content {
+    transition: all 1s ease;
+}
+
+/* Desktop: switch between icon+text and icon only */
+@media (min-width: 768px) {
+    #sidebar.collapsed {
+        width: 70px;
+    }
+    #sidebar.expanded {
+        width: 280px;
+    }
+    #sidebar.collapsed .nav-link span {
+        display: none;
+    }
+    
+    #sidebar .nav-link{
+        color:var(--bs-primary) !important;
+    }
+}
+/* Mobile: switch between icon+text and fully hidden */
+@media (max-width: 767.98px) {
+    #sidebar.expanded {
+        display: none;
+    }
+    #sidebar.collapsed {
+        width: 100%;
+        position: fixed
+    }
+}
+
+/* Optional: Customize the active link appearance */
+.submenu .nav-link.active {
+    font-weight: 500;
+    color: var(--bs-primary) !important;
+}
+/****** Forms */

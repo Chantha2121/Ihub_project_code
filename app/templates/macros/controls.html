@@ -1,0 +1,111 @@
+{% macro render_field(field, is_readonly=False) %}
+    <div class="mb-3">
+        <label for="{{ field.id }}" class="form-label">
+            {{ field.label.text }}
+            {% if field.flags.required %} <span class="text-danger">*</span> {% endif %}
+        </label>
+
+        {% if field.type in ["StringField", "EmailField", "PasswordField"] %}
+            {% set readonly_class = " bg-light" if is_readonly else "" %}
+            {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly, enabled=is_readonly ) }}
+
+        {% elif field.type == "TextAreaField" %}
+            {% set readonly_class = " bg-light" if is_readonly else "" %}
+            {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), rows=4, readonly=is_readonly) }}
+
+        {% elif field.type == "BooleanField" %}
+        <div class="form-check">
+            {{ field(class="form-check-input" + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+            <label class="form-check-label" for="{{ field.id }}">{{ field.label.text }}</label>
+        </div>
+
+        {% elif field.type == "SelectField" %}
+            {% set readonly_class = " bg-light" if is_readonly else "" %}
+            {{ field(class="form-select" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+
+        {% elif field.type == "RadioField" %}
+        <div>
+            {% for subfield in field %}
+            <div class="form-check">
+                {{ subfield(class="form-check-input" + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% elif field.type in ["IntegerField", "DecimalField"] %}
+            {% set readonly_class = " bg-light" if is_readonly else "" %}
+            {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+
+        {% elif field.type == "FileField" %}
+            {% set readonly_class = " bg-light" if is_readonly else "" %}
+            {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+        {% endif %}
+
+        {# Display validation errors #}
+        {% if field.errors %}
+            <div class="invalid-feedback">
+                {% for error in field.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{# render_field1: style to make label and control on the same row  #}
+{% macro render_field1(field, is_readonly=False) %}
+    <div class="mb-3 row">
+        <label for="{{ field.id }}" class="col-form-label col-md-3">
+            {{ field.label.text }}
+            {% if field.flags.required %} <span class="text-danger">*</span> {% endif %}
+        </label>
+        <div class="col-md-9">
+            {% if field.type in ["StringField", "EmailField", "PasswordField"] %}
+                {% set readonly_class = " bg-light" if is_readonly else "" %}
+                {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly, enabled=is_readonly ) }}
+
+            {% elif field.type == "TextAreaField" %}
+                {% set readonly_class = " bg-light" if is_readonly else "" %}
+                {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), rows=4, readonly=is_readonly) }}
+
+            {% elif field.type == "BooleanField" %}
+            <div class="form-check">
+                {{ field(class="form-check-input" + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+                <label class="form-check-label" for="{{ field.id }}">{{ field.label.text }}</label>
+            </div>
+
+            {% elif field.type == "SelectField" %}
+                {% set readonly_class = " bg-light" if is_readonly else "" %}
+                {{ field(class="form-select" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+
+            {% elif field.type == "RadioField" %}
+            <div>
+                {% for subfield in field %}
+                <div class="form-check">
+                    {{ subfield(class="form-check-input" + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+                    <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% elif field.type in ["IntegerField", "DecimalField"] %}
+                {% set readonly_class = " bg-light" if is_readonly else "" %}
+                {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+
+            {% elif field.type == "FileField" %}
+                {% set readonly_class = " bg-light" if is_readonly else "" %}
+                {{ field(class="form-control" + readonly_class + (" is-invalid" if field.errors else ""), readonly=is_readonly) }}
+            {% endif %}
+
+            {# Display validation errors #}
+            {% if field.errors %}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

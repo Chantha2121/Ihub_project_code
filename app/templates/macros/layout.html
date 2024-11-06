@@ -1,0 +1,104 @@
+{% macro common_meta() -%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%- endmacro %}
+
+{% macro common_css() -%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css') }}" id="bsicon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/css/bootstrap.min.css') }}" id="bscss">
+    <link rel="stylesheet" href="{{ url_for('static', filename='app/css/styles.css') }}" id="appcss">
+{%- endmacro %}
+
+{% macro common_js() -%}
+    <script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/screenfull/screenfull.js') }}"></script>
+    <script src="{{ url_for('static', filename='app/js/app.js') }}"></script>
+{%- endmacro %}
+
+{% macro base_js() -%}
+    <script src="{{ url_for('static', filename='vendors/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{%- endmacro %}
+
+{% macro header_navbar(user_fullname) -%}
+    <nav class="navbar navbar-expand-lg py-0 px-1" data-bs-theme="dark">
+        <div class="container-fluid">
+            <!-- Logo and Brand Name -->
+            <a class="navbar-brand logo-container" id="logoContainer" href="{{ url_for('admin_bp.panel_bp.index') }}">
+                <img class="desktop-logo d-none d-md-block d-lg-block d-xl-block" src="{{ url_for('static', filename='assets/logo/logo_white.png') }}" alt="App Logo">
+                <img class="mobile-logo d-md-none" src="{{ url_for('static', filename='assets/logo/logo_icon_white.png') }}" alt="App Logo">
+            </a>
+            <button class="btn btn-primary" id="toggleSidebar">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <!-- START Left navbar-->
+            <ul class="navbar-nav d-flex flex-row me-auto mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link m-0 py-0 px-2 fs-4" href="#">
+                    <i class="bi bi-gear-wide-connected"></i>
+                </a>
+                </li class="nav-item">
+                <a class="nav-link m-0 py-0 px-2 fs-4" href="#">
+                    <i class="bi bi-bar-chart-line"></i>
+                </a>
+            </ul>
+            <!-- Right-aligned icons -->
+            <div class="d-flex">
+                <ul class="navbar-nav d-flex flex-row me-auto mb-lg-0">
+                    <li class="nav-item d-none d-md-block">
+                        <a id="fullscreen-btn" class="btn nav-link px-2 fs-5" href="#">
+                            <i class="bi bi-fullscreen"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn dropdown border-0 dropdown-toggle px-2 fs-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end position-absolute bg-primary text-white" aria-labelledby="navbarDropdown">
+                            <!-- Header -->
+                            <div class="px-3 py-2">
+                                <span>
+                                    Welcome, {{ user_fullname }}
+                                </span>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="vr bg-white mx-0"></div>
+                <!-- Logout -->
+                <a href="{{url_for('auth_bp.login_bp.logout')}}" class="btn icon-btn fs-5 text-decoration-underline">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+{%- endmacro %}
+
+{% macro render_sidebar(menu_data) -%}
+    <nav id="sidebar" class="d-md-block expanded">
+        <ul class="nav flex-column flex-shrink-0 p-2 text-decoration-none border-bottom">
+            {% for menu in menu_data %}
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#{{menu.code}}" role="button" aria-expanded="false" aria-controls="{{menu.code}}">
+                        {{ menu.icon|safe }}<span class="ms-2">{{ menu.name }}</span>
+                    </a>
+                    <ul class="collapse submenu list-unstyled ps-3" id="{{menu.code}}">
+                        {% for submenu in menu.submenus | sort(attribute='order') %}
+                            <li>
+                                <a class="nav-link" href="{{ url_for(submenu.end_point) }}" title="{{ submenu.name }}"  target = "frame_content">
+                                    {{ submenu.icon|safe }} <span class="ms-0"> {{ submenu.name }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{%- endmacro %}
+
+{% macro footer() -%}
+    <div class="container">
+        <p class="m-0">&copy; 2024 iHub. All Rights Reserved.</p>
+    </div>
+{%- endmacro %}
